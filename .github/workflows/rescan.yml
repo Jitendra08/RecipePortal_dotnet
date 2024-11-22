@@ -15,16 +15,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Move the repository to the desired directory
-      - name: Move repository to target directory
+      # Step 2: Copy repository to target directory
+      - name: Copy repository to target directory
         run: |
-          Move-Item -Path "D:\a\RecipePortal_dotnet\RecipePortal_dotnet" -Destination "C:\Users\JKM\Documents\Cast_Software\G\SOURCES\RecipePortal_dotnet" -Force
+          Copy-Item -Path "D:\a\RecipePortal_dotnet\RecipePortal_dotnet" -Destination "C:\Users\JKM\Documents\Cast_Software\G\SOURCES\RecipePortal_dotnet" -Recurse -Force
 
-      # Step 3: List the contents of the checked-out repository
+      # Optional Step 3: Remove the original repository (if necessary)
+      - name: Remove original repository directory
+        run: |
+          Remove-Item -Path "D:\a\RecipePortal_dotnet\RecipePortal_dotnet" -Recurse -Force
+
+      # Step 4: List the contents of the checked-out repository
       - name: List directory contents of repository
         shell: powershell
         run: Get-ChildItem -Path 'C:\\Users\\JKM\\Documents\\Cast_Software\\G\\SOURCES\\RecipePortal_dotnet'
-                
+        
       # Step 4: List the contents of the 'Automation' directory (updated path for JAR)
       - name: List contents of Automation directory (JAR location)
         shell: powershell
