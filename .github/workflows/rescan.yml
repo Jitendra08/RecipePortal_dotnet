@@ -11,36 +11,39 @@ jobs:
     runs-on: windows-latest  # Use the latest Windows runner available
 
     steps:
-      # Step 1: Checkout the repository into the specified directory
+      # Step 1: Checkout the repository to the default location
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          path: 'C:\\Users\\JKM\\Documents\\Cast_Software\\G\\SOURCES\\RecipePortal_dotnet'
 
-      # Step 2: List the contents of the checked-out repository
+      # Step 2: Move the repository to the desired directory
+      - name: Move repository to target directory
+        run: |
+          Move-Item -Path "D:\a\RecipePortal_dotnet\RecipePortal_dotnet" -Destination "C:\Users\JKM\Documents\Cast_Software\G\SOURCES\RecipePortal_dotnet" -Force
+
+      # Step 3: List the contents of the checked-out repository
       - name: List directory contents of repository
         shell: powershell
         run: Get-ChildItem -Path 'C:\\Users\\JKM\\Documents\\Cast_Software\\G\\SOURCES\\RecipePortal_dotnet'
-        
-      # Step 3: List the contents of the 'Automation' directory (updated path for JAR)
+                
+      # Step 4: List the contents of the 'Automation' directory (updated path for JAR)
       - name: List contents of Automation directory (JAR location)
         shell: powershell
         run: Get-ChildItem -Path 'C:\\Users\\JKM\\Documents\\Automation'  # Updated JAR directory path
 
-      # Step 4: Set up JDK 11
+      # Step 5: Set up JDK 11
       - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
           java-version: '11'
           distribution: 'adopt'
 
-      # Step 5: Verify network connectivity
+      # Step 6: Verify network connectivity
       - name: Verify network connectivity
         run: |
           ping https://6460-60-243-239-67.ngrok-free.app  # Ping the server to check connectivity
           curl --head --fail --silent --show-error https://6460-60-243-239-67.ngrok-free.app  # Check HTTP connectivity
 
-      # Step 6: Rescan the application using CAST AIP CLI
+      # Step 7: Rescan the application using CAST AIP CLI
       - name: Rescan Application
         run: |
           java -jar aip-console-tools-cli.jar add --apikey="bkmj2aEO.vbrR4eMUZacrJYBLf5zBiH5leCc5mItA" -n "RecipePortal" --server-url="https://6460-60-243-239-67.ngrok-free.app" -f "C:\\Users\\JKM\\Documents\\Cast_Software\\G\\SOURCES\\RecipePortal_dotnet" --verbose=false --set-as-current=true --upload-application=true --process-imaging=true
