@@ -18,7 +18,7 @@ jobs:
       # Step 2: Copy repository to the target directory
       - name: Copy repository to target directory
         run: |
-          Copy-Item -Path "D:\a\RecipePortal_dotnet\RecipePortal_dotnet" -Destination "C:\Users\JKM\Documents\Cast_Software\G\SOURCES\RecipePortal_dotnet" -Recurse -Force
+          Copy-Item -Path "C:\Users\RecipePortal_dotnet\RecipePortal_dotnet" -Destination "C:\Users\JKM\Documents\Cast_Software\G\SOURCES\RecipePortal_dotnet" -Recurse -Force
 
       # Step 3: List the contents of the checked-out repository in the target directory
       - name: List directory contents of repository
