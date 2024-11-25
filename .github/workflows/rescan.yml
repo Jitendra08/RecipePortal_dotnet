@@ -36,7 +36,9 @@ jobs:
       - name: Verify network connectivity
         run: |
           ping https://6460-60-243-239-67.ngrok-free.app  # Ping the server to check connectivity
-          curl --head --fail --silent --show-error http://localhost:8081  # Check HTTP connectivity
+          curl --head --fail --silent --show-error http://JKMLAP1:8081  # Check HTTP connectivity
+          sleep 5
+          done
 
       # Step 7: Rescan the application using CAST AIP CLI
       - name: Rescan Application
