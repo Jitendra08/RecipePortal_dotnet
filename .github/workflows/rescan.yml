@@ -36,9 +36,9 @@ jobs:
       - name: Verify network connectivity
         run: |
           ping https://6460-60-243-239-67.ngrok-free.app  # Ping the server to check connectivity
-          curl --head --fail --silent --show-error https://6460-60-243-239-67.ngrok-free.app  # Check HTTP connectivity
+          curl --head --fail --silent --show-error http://localhost:8081  # Check HTTP connectivity
 
       # Step 7: Rescan the application using CAST AIP CLI
       - name: Rescan Application
         run: |
-          java -jar aip-console-tools-cli.jar add --apikey="pPk47wUp.lg90GFWe2R7X4oJFnIgW1FH5SGY0wkm9" -n "RecipePortal" --server-url="https://6460-60-243-239-67.ngrok-free.app" --no-clone -f "C:\\Users\\JKM\\Documents\\Cast_Software\\G\\SOURCES\\RecipePortal_dotnet" --verbose=false --set-as-current=true --upload-application=true --process-imaging=true
+          java -jar aip-console-tools-cli.jar add --apikey="pPk47wUp.lg90GFWe2R7X4oJFnIgW1FH5SGY0wkm9" -n "RecipePortal" --server-url="http://localhost:8081" --no-clone -f "C:\\Users\\JKM\\Documents\\Cast_Software\\G\\SOURCES\\RecipePortal_dotnet" --verbose=false --set-as-current=true --upload-application=true --process-imaging=true
