@@ -25,21 +25,29 @@ jobs:
         shell: powershell
         run: Get-ChildItem -Path 'C:\\Users\\JKM\\Documents\\Cast_Software\\G\\SOURCES\\RecipePortal_dotnet'
 
-      # Step 4: Set up JDK 11
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'adopt'
+      # Step 4: Set JAVA_HOME to local Java installation
+      - name: Set JAVA_HOME environment variable
+        run: |
+          $env:JAVA_HOME="C:\Program Files\Java\jdk-11.0.15.1"  # Set the path to your local Java installation
+          Write-Host "JAVA_HOME is set to $env:JAVA_HOME"
+        shell: powershell
 
-      # Step 5: Verify network connectivity
+      # Step 5: Verify Java Version
+      - name: Verify Java Version
+        run: |
+          & "$env:JAVA_HOME\bin\java.exe" -version  # Check the local Java version
+        shell: powershell
+
+      # Step 6: Verify network connectivity
       - name: Verify network connectivity
         run: |
           ping https://6460-60-243-239-67.ngrok-free.app  # Ping the server to check connectivity
           curl --head --fail --silent --show-error http://JKMLAP1:8081  # Check HTTP connectivity
           sleep 5  # Wait to ensure service is ready
+        shell: powershell
 
-      # Step 6: Rescan the application using CAST AIP CLI
+      # Step 7: Rescan the application using CAST AIP CLI
       - name: Rescan Application
         run: |
           java -jar aip-console-tools-cli.jar add --apikey="pPk47wUp.lg90GFWe2R7X4oJFnIgW1FH5SGY0wkm9" -n "RecipePortal" --server-url="http://localhost:8081" --no-clone -f "C:\\Users\\JKM\\Documents\\Cast_Software\\G\\SOURCES\\RecipePortal_dotnet" --verbose=false --set-as-current=true --upload-application=true --process-imaging=true
+        shell: powershell
