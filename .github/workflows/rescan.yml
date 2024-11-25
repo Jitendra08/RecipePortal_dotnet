@@ -1,4 +1,4 @@
-name: Rescan Application in CAST AIP
+name: Rescan Application in CAST Imaging Console
 
 on:
   push:
